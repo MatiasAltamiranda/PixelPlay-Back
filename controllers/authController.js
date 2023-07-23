@@ -10,11 +10,13 @@ exports.signUp = async (req,res)=>{
             lastname : req.body.lastname,
             email : req.body.email,
             password : req.body.password,
-            confirmPassword : req.body.confirmPassword
+            confirmPassword : req.body.confirmPassword,
+            profilePhoto: "default_profile.jpg"
         });
         const {name,role,_id,email} = newUser
         const token = signToken(newUser._id)
         res.status(201).json({
+            ok : true,
             token,
             data:{
             user:{name,role,_id,email}
@@ -35,12 +37,12 @@ exports.login= async(req,res)=>{
        if( !user || !(await user.comparePassword(password, user.password))){
         return res.status(401).json("Las credenciales no son correctas")
        }
-       const {name,role,_id,email: userEmail} = user;
+       const {name,role,_id,email: userEmail,profilePhoto} = user;
        const token = signToken(user._id)
        return res.status(200).json({
         token,
         data:{
-        user : {name,role,_id,email: userEmail}
+        user : {name,role,_id,email: userEmail,profilePhoto }
       } 
        })
     } catch (error) {

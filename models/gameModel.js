@@ -1,5 +1,8 @@
 const { Schema, model} = require ("mongoose");
 const slugify = require ("slugify");
+const {reviewSchema} = require("./review");
+
+
 const gameSchema = new Schema ({
     tittle : {
         type : String,
@@ -12,7 +15,7 @@ const gameSchema = new Schema ({
         type : String,
         require : [true, "La descripcion es obligatoria"],
         minlength : 10,
-        maxlength :250,
+        maxlength :450,
         trim: true
     },
     franchise : {
@@ -42,19 +45,19 @@ const gameSchema = new Schema ({
     coverImage :{
         type : String
     },
-    images:{
-        type : Array
-    },
+    images:[String],
     category:{
-        type : Array
-    },
-    comments:{
-        type : Array
+        type : String,
+        minlength : 2,
+        maxlength :50
     },
     slug : {
         type : String,
         unique : true
-    }
+    },
+    reviews : [
+        reviewSchema
+    ]
 },{
     timestamps : true
 })

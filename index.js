@@ -7,19 +7,24 @@ const cors = require ("cors")
 const userRoutes = require("./routes/userRoutes")
 const gameRoute = require("./routes/gameRoute")
 const authRoutes = require("./routes/authRoutes")
+const reviewRoute = require("./routes/reviewsRoute")
 
 connectDB();
 
 const app = express();
 
+app.use(express.static(`${__dirname}/public`));
+
 app.use(cors());
 
-app.use(express.json({limit : "10kb"})),
+app.use(express.json({limit : "110kb"})),
 
 
 app.use('/api/v1/users',userRoutes )
 app.use('/api/v1/auth',authRoutes )
 app.use('/api/v1/games', gameRoute)
+app.use('/api/v1/reviews', reviewRoute)
+
 
 /*
  
