@@ -71,4 +71,4 @@ gameSchema.pre('save', function(next){
 const Game = model("Game", gameSchema);
 
 
-module.exports = Game;
+module.exports = {gameSchema,Game};

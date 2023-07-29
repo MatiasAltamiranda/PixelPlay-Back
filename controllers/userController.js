@@ -1,6 +1,6 @@
 const fs = require('fs');
 const User = require("../models/userModel");
-
+const Game = require('../models/gameModel');
 
 
 exports.getUsers = (req,res) =>{
@@ -53,3 +53,9 @@ exports.updateMe = async (req, res) => {
     }
   };
   
+
+  
+
+
+
+

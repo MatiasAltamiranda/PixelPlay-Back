@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const crypto = require("crypto");
 const {reviewSchema} = require("./review");
-
+const {gameSchema} = require ("./gameModel")
 const userSchema = new Schema({
   name: {
     type: String,
@@ -67,10 +67,15 @@ const userSchema = new Schema({
   passwordChangeAt: {
     type: Date,
   },
+  cart: [
+    {
+      game: { type: gameSchema },
+    }],
   passwordResetToken: String,
   passwordResetExpires: Date,
 
   reviews: [reviewSchema]},
+  
   {
     timestamps : true
 }
