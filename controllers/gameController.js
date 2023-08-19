@@ -63,23 +63,25 @@ exports.getProductBySlug = async (req, res) => {
         franchise: req.body.franchise,
         price: req.body.price,
         developer: req.body.developer,
-        coverImage: req.filteredBody.coverImage,
-        images: req.filteredBody.images,
       };
   
-      if (req.filteredBody.coverImage) {
-        // Eliminar la foto de portada anterior si existe y no se llama "default_profile.jpg"
-        if (req.body.coverImage && req.body.coverImage !== "default_profile.jpg") {
-          const filePath = `public/img/games/${req.body.coverImage}`;
+      if (req.body.coverImage) {
+        filteredBody.coverImage = req.body.coverImage;
+  
+        const existingGame = await Game.findById(id);
+        if (existingGame.coverImage !== req.body.coverImage) {
+          const filePath = `public/img/games/${existingGame.coverImage}`;
           fs.unlinkSync(filePath);
         }
       }
   
       if (req.body.images && req.body.images.length > 0) {
-        // Eliminar las imágenes anteriores si existen
-        req.body.images.forEach((image) => {
-          if (image !== "default_profile.jpg") {
-            const filePath = `public/img/games/${image}`;
+        filteredBody.images = req.body.images.filter(image => image !== "default_profile.jpg");
+  
+        const existingGame = await Game.findById(id);
+        existingGame.images.forEach(existingImage => {
+          if (!filteredBody.images.includes(existingImage)) {
+            const filePath = `public/img/games/${existingImage}`;
             fs.unlinkSync(filePath);
           }
         });
@@ -90,14 +92,12 @@ exports.getProductBySlug = async (req, res) => {
         runValidators: true,
       });
   
-
       return res.status(200).json({ game: updateGame });
     } catch (error) {
-
+      console.log(error);
       return res.status(500).json("Error al editar el juego");
     }
   };
-  
   
   
   
