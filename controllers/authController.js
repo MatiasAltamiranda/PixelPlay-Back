@@ -22,6 +22,7 @@ exports.signUp = async (req,res)=>{
             user:{name,role,_id,email}
         }})
     } catch (error) {
+      console.log(error)
       res.status(500).json({error : error})  
     }
 }
@@ -45,6 +46,7 @@ exports.login= async(req,res)=>{
         user : {name,role,_id,email: userEmail,profilePhoto }
       } 
        })
+
     } catch (error) {
         console.log(error)
       res.status(500).json({error : "Ups algo salio mal"})  

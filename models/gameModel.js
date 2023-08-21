@@ -53,7 +53,7 @@ const gameSchema = new Schema ({
     },
     slug : {
         type : String,
-        unique : true
+       /*  unique : true */
     },
     reviews : [
         reviewSchema

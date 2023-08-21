@@ -11,8 +11,9 @@ exports.protect = async (req,res,next) =>{
             token = req.headers.authorization.split(" ")[1];
         }
         if(!token){
-            return res.status(401).json("No tiene acceso")
-        }
+            return res.status(401).json("No tiene accesoo")
+        }   
+     
        jwt.verify(token, process.env.SECRET_TOKEN, async (error,data)=>{
             if(error) return res.status(401).json("No tiene acceso lvl 2");
             const user = await User.findById(data.id);
@@ -29,6 +30,10 @@ exports.protect = async (req,res,next) =>{
         console.log(error)
         return res.status(500).json("Error")
     }
+}
+
+exports.prueba = ()=>{
+    console.log("desde prueba")
 }
 
 

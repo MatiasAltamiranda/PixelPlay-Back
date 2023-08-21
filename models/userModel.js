@@ -116,6 +116,6 @@ userSchema.methods.passwordChangeAfter = function (JWTTime) {
   return false;
 };
 
-const User = model("allUser", userSchema);
+const User = model("UsersDB", userSchema);
 
 module.exports = User;

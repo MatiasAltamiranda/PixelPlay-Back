@@ -17,8 +17,6 @@ exports.createUser = async (req,res)=>{
         const user = await User.create(req.body );
         res.status(201).json({ok:true,message : "El usuario se creo exitosamente", User : user})
     } catch (error) {
-        console.log(req.body)
-        console.log(error)
         res.status(500).json("Hubo un error al crear usuarios")
     }
 }
